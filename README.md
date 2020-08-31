@@ -3,6 +3,7 @@ Classification of stereo-EEG contacts in white matter versus gray matter using r
 
 A description of the method can be found in the accompanying paper.
 
+## Data input format
 To use, each patient's data must be saved as a separate matlab struct with the following fields:
 
 name: a string, giving the patient ID or name, i.e. "patient 03"
@@ -26,6 +27,10 @@ skull) than shank_elecs{i}(4).
 
 Fs:  the sampling rate used to record this patient's data (in Hz)
 
+## Feature extraction
 
-Features can then be extracted and saved by running extract_features_script.m
-The classifier is then run on a given patient using main_script.m
+Features are extracted and saved by running extract_features_script.m
+
+## Classification
+
+The classifier is run on a given patient using main_script.m
