@@ -8,9 +8,6 @@ function [features_wm, features_gm, train_labels] = get_training_data(train_subj
 train_labels = {};
 n_train_subj = length(train_subj_data);
 for subj_i=1:n_train_subj
-    if subj_i == excl_subj_i
-        continue
-    end
     n_shanks = length(train_subj_data{subj_i}.ch_type_list);
     for shank_i=1:n_shanks
         train_labels{end+1} = train_subj_data{subj_i}.ch_type_list{shank_i};
@@ -28,12 +25,12 @@ n_subj = length(train_subj_data);
 features_wm = [];
 features_gm = [];
 for subj_i=1:n_subj
-    n_shanks = length(train_subj_data{subj_i}.subj_data.ch_type_list);
+    n_shanks = length(train_subj_data{subj_i}.ch_type_list);
     for shank_i=1:n_shanks
-        wm_mask = logical(train_subj_data{subj_i}.subj_data.ch_type_list{shank_i});
+        wm_mask = logical(train_subj_data{subj_i}.ch_type_list{shank_i});
         gm_mask = ~wm_mask;
-        features_wm = [features_wm; train_subj_data{subj_i}.subj_data.ch_feat_list{shank_i}(wm_mask,:)];
-        features_gm = [features_gm; train_subj_data{subj_i}.subj_data.ch_feat_list{shank_i}(gm_mask,:)];
+        features_wm = [features_wm; train_subj_data{subj_i}.ch_feat_list{shank_i}(wm_mask,:)];
+        features_gm = [features_gm; train_subj_data{subj_i}.ch_feat_list{shank_i}(gm_mask,:)];
     end
 end
 

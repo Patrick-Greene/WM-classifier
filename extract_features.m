@@ -10,34 +10,34 @@ function out = extract_features(subj_data)
 % data:  < n_timesteps, n_contacts >  array, giving the recorded voltage on
 % every contact at each timestep
 
-% ch_type:  < n_contacts, 1 > array corresponding to the columns of data,
+% ch_type:  < 1, n_contacts > array corresponding to the columns of data,
 % with each entry 0, 1, or -1 indicating whether each contact is 
 % gray matter (0), white matter (1), or other (-1).
 % "other" includes contacts that are outside the brain, malfunctioning, etc
 
-% ch_name:  < n_contacts, 1 > cell array, giving the contact name (as a string)
+% ch_name:  < 1, n_contacts > cell array, giving the contact name (as a string or char array)
 % for each contact (corresponding to the columns of data)
 
-% shank_elecs:  < n_shanks, 1 > cell array, where shank_elecs{i} is an array
+% shank_elecs:  < 1, n_shanks > cell array, where shank_elecs{i} is an array
 % of contact indices for shank i. These are the columns of data that correspond
 % to the contacts on a particular shank. THESE MUST BE ORDERED FROM SHALLOW
 % TO DEEP; i.e. shank_elecs{1}(3) is shallower in the brain (closer to
 % skull) than shank_elecs{1}(4).
 
-% contact_spacing:  <n_shanks, 1 > array, giving the spacing between
-% contacts for each shank. Units don't matter, as long as it's consistent
-% across shanks.
-
-% Fs:  the sampling rate used to record this patient's data
+% Fs:  the sampling rate used to record this patient's data (in Hz)
 
 
 % make initial ch_name_list, ch_type_list
+ch_name = subj_data.ch_name;
+ch_type = subj_data.ch_type;
+shank_elecs = subj_data.shank_elecs;
+
 ch_name_list = {};
 ch_type_list = {}; 
 n_shanks = length(shank_elecs);
 for shank_i=1:n_shanks
-    ch_name_list{shank_i} = {ch_name{shank_elecs{shank_i}}};
-    ch_type_list{shank_i} = ch_type(shank_elecs{shank_i});
+    ch_name_list{shank_i} = {ch_name{shank_elecs{shank_i}}}';
+    ch_type_list{shank_i} = ch_type(shank_elecs{shank_i})';
 end
 
 
@@ -89,7 +89,7 @@ for shank_i=1:n_shanks
             ch_feat_list{shank_i}(ch_i,:) = [NaN, NaN];
         else
             ch_feat_list{shank_i}(ch_i,:) = [mean(ch_spec_list_bp{shank_i}{ch_i}(mask_bp) - mean_spectrum_bp(mask_bp)),...
-                (ch_i - outermost_ch)*subj_data.contact_spacing(shank_i)];
+                ch_i - outermost_ch];
         end
     end
 end

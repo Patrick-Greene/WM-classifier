@@ -7,7 +7,7 @@ test_features = {};
 test_labels = {};
 n_shanks = length(test_subj_data{1}.ch_type_list);
 for shank_i=1:n_shanks
-    test_features{shank_i} = test_subj_data{1}.subj_data.ch_feat_list{shank_i};
+    test_features{shank_i} = test_subj_data{1}.ch_feat_list{shank_i};
     test_labels{shank_i} = test_subj_data{1}.ch_type_list{shank_i};
 end
 end

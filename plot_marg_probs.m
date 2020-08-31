@@ -14,7 +14,7 @@ for shank_i=1:n_shanks
         xticklabels(shank_elecs{shank_i})
         yticklabels([])
         if j==1
-            title("Probability of white matter",'FontSize',16,'FontWeight','Normal')
+            title("Probability of white matter",'FontSize',14,'FontWeight','Normal')
         end
         j = j+1;
         subplot(n_shanks,2,j)
@@ -24,12 +24,12 @@ for shank_i=1:n_shanks
         xticklabels(shank_elecs{shank_i})
         yticklabels([])
         if j==2
-            title("True label",'FontSize',16,'FontWeight','Normal')
+            title("True label",'FontSize',14,'FontWeight','Normal')
         end
         j=j+1;
     end
 end
 % sgtitle("Posterior probability subject " + all_subj_data{subj_i}.subj_data.name)
-sgtitle(test_subj_data{1}.name,'FontSize',20,'FontWeight','Bold')
+sgtitle(test_subj_data{1}.name,'FontSize',14,'FontWeight','Normal')
 
 end

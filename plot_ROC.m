@@ -20,9 +20,8 @@ plot(false_pos, true_pos,'k')
 plot(thresh_to_use, thresh_to_use, 'k--')
 
 scatter(fp5,tp5,'r*') % fp,tp rate at thresh=0.5
-set(gca,'fontsize',20)
+set(gca,'fontsize',12)
 title("ROC curve " + test_subj_data{1}.name + " (AUC = "+string(AUC)+")")
-title("")
 xticks(0:0.1:1)
 xlabel("False positive rate")
 ylabel("True positive rate")

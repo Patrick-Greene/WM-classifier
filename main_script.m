@@ -5,22 +5,35 @@ clear; clc
 test_subj_i = 1; % index of test subject to exclude from training data
 
 % path to where feature data is saved (see extract_features_script.m)
-feature_data_path = "/path to feature data";
+feature_data_dir = "/path to feature data";
+file_names = ["subj_1", "subj_2"]+"_features"; % file names of feature data
+% created from extract_features_script.m
+
 max_ch = 16; % max number of channels on any shank
 n_samples = 100; % number of samples to use in posterior predictive
 alpha_cd = 1; % contact depth kernel width (alpha_2 in paper)
 
 
-% load data and separate into train and test
-all_subj_data = load(feature_data_path);
-n_subj = length(all_subj_data);
-train_subj_data = all_subj_data([1:test_subj_i-1, test_subj_1+1:n_subj]);
-test_subj_data = all_subj_data(test_subj_i);
+% load data for train and test sets
+n_subj = length(file_names);
+train_subj_data = {};
+for i=[1:test_subj_i-1, test_subj_i+1:n_subj]
+    % have to do this stupid thing bc matlab load returns a struct
+    temp=load(feature_data_dir +"/"+ file_names(i));
+    field = fieldnames(temp);
+    train_subj_data{end+1} = temp.(field{1});
+end
 
-% get training set
+test_subj_data = {};
+temp=load(feature_data_dir +"/"+ file_names(test_subj_i));
+field = fieldnames(temp);
+test_subj_data{1} = temp.(field{1});
+
+
+% format training set
 [features_wm, features_gm, train_labels] = get_training_data(train_subj_data);
 
-% get test set
+% format test set
 [test_features, test_labels] = get_test_data(test_subj_data);
 
 % Run the classifier
