@@ -50,7 +50,7 @@ for fold_i=1:n_folds
             test_features, max_ch, alpha_cd, n_samples);
         
         AUC(end+1) = plot_ROC(est_probs, test_subj_data{i});
-        AUC(end+1)
+        AUC(end)
     end
 end
 
