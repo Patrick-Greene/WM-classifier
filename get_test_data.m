@@ -5,9 +5,9 @@ function [test_features, test_labels] = get_test_data(test_subj_data)
 
 test_features = {};
 test_labels = {};
-n_shanks = length(test_subj_data{1}.ch_type_list);
+n_shanks = length(test_subj_data.ch_type_list);
 for shank_i=1:n_shanks
-    test_features{shank_i} = test_subj_data{1}.ch_feat_list{shank_i};
-    test_labels{shank_i} = test_subj_data{1}.ch_type_list{shank_i};
+    test_features{shank_i} = test_subj_data.ch_feat_list{shank_i};
+    test_labels{shank_i} = test_subj_data.ch_type_list{shank_i};
 end
 end

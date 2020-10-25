@@ -34,7 +34,7 @@ test_subj_data{1} = temp.(field{1});
 [features_wm, features_gm, train_labels] = get_training_data(train_subj_data);
 
 % format test set
-[test_features, test_labels] = get_test_data(test_subj_data);
+[test_features, test_labels] = get_test_data(test_subj_data{1});
 
 % Run the classifier
 est_probs = wm_classifier(features_wm, features_gm, train_labels,...
@@ -43,10 +43,10 @@ est_probs = wm_classifier(features_wm, features_gm, train_labels,...
 
 % Plot contact probabilities vs true labels and ROC curve
 figure(1)
-plot_marg_probs(est_probs, test_subj_data)
+plot_marg_probs(est_probs, test_subj_data{1})
 
 figure(2)
-plot_ROC(est_probs, test_subj_data)
+plot_ROC(est_probs, test_subj_data{1})
 
 
 

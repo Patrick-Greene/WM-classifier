@@ -9,7 +9,7 @@ for shank_i=1:n_shanks
     if length(est_probs{shank_i}) > 0 % skip shanks w/ no elecs
         subplot(n_shanks,2,j)
         imagesc(est_probs{shank_i}, clims)
-        shank_elecs = test_subj_data{1}.ch_name_list;
+        shank_elecs = test_subj_data.ch_name_list;
         xticks(1:length(shank_elecs{shank_i}))
         xticklabels(shank_elecs{shank_i})
         yticklabels([])
@@ -19,7 +19,7 @@ for shank_i=1:n_shanks
         j = j+1;
         subplot(n_shanks,2,j)
         % lighten the colors slightly on the true labels so easier to see
-        imagesc((0.9*double(test_subj_data{1}.ch_type_list{shank_i}'))+0.05, clims) 
+        imagesc((0.9*double(test_subj_data.ch_type_list{shank_i}'))+0.05, clims) 
         xticks(1:length(shank_elecs{shank_i}))
         xticklabels(shank_elecs{shank_i})
         yticklabels([])
@@ -30,6 +30,6 @@ for shank_i=1:n_shanks
     end
 end
 % sgtitle("Posterior probability subject " + all_subj_data{subj_i}.subj_data.name)
-sgtitle(test_subj_data{1}.name,'FontSize',14,'FontWeight','Normal')
+sgtitle(test_subj_data.name,'FontSize',14,'FontWeight','Normal')
 
 end

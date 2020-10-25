@@ -1,7 +1,7 @@
-function out = plot_ROC(est_probs, test_subj_data)
+function AUC = plot_ROC(est_probs, test_subj_data)
 
 thresh_to_use = [1:-0.01:0];
-test_labels = test_subj_data{1}.ch_type_list;
+test_labels = test_subj_data.ch_type_list;
 n_thresh = length(thresh_to_use);
 false_pos = nan(1,n_thresh);
 true_pos = nan(1,n_thresh);
@@ -14,14 +14,13 @@ end
 % Get area under ROC curve
 AUC = calc_AUC(false_pos, true_pos);
 
-
 hold on
 plot(false_pos, true_pos,'k')
 plot(thresh_to_use, thresh_to_use, 'k--')
 
 scatter(fp5,tp5,'r*') % fp,tp rate at thresh=0.5
 set(gca,'fontsize',12)
-title("ROC curve " + test_subj_data{1}.name + " (AUC = "+string(AUC)+")")
+title("ROC curve " + test_subj_data.name + " (AUC = "+string(AUC)+")")
 xticks(0:0.1:1)
 xlabel("False positive rate")
 ylabel("True positive rate")
